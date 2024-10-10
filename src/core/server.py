@@ -41,4 +41,4 @@ class Server:
         try:
             self.app.run(host=wsgi_host, port=self.param.parameters.port, debug=wsgi_debug)
         except Exception as e:
-            log.exception("Failed to start server:", e)
+            log.exception("Failed to start server", e)
