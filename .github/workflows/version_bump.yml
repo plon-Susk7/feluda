@@ -1,4 +1,4 @@
-name: Version Bump Test
+name: Version Bump
 
 permissions:
   contents: write
@@ -22,20 +22,22 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install semantic-release
-        run: |
-          pip install python-semantic-release
+      - name: Release main project
+        id : release_main
+        uses: python-semantic-release/python-semantic-release@v9.12.0
+        with:
+          directory: ./feluda
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Dry Run - Version Bump for Main Project
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          cd feluda
-          semantic-release version --dry-run
+      - name: Get version update number
+        run : echo "Version is ${{ steps.release_main.outputs.version }}"
 
-      - name: Dry Run - Version Bump for Operator
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          cd operators/image_vec_rep_resnet
-          semantic-release version --dry-run
+      - name: Release operator 
+        id : release_operator
+        uses: python-semantic-release/python-semantic-release@v9.12.0
+        with:
+          directory: ./operators/image_vec_rep_resnet
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Get version update number
+        run : echo "Version is ${{ steps.release_operator.outputs.version }}"
