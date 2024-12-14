@@ -31,12 +31,12 @@ jobs:
         working-directory: ./feluda
         run: |
           semantic-release version
-          cat pyproject.toml
 
       - name: Bump version in operator project
         working-directory: ./operators/image_vec_rep_resnet
         run: |
           semantic-release version
+          cat pyproject.toml
 
       - name: Commit and push changes
         run: |
