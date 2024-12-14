@@ -32,3 +32,5 @@ class Test(unittest.TestCase):
         image_vec = image_vec_rep_resnet.run(image_obj)
         print(len(image_vec))
         self.assertEqual(len(image_vec), 512)
+
+# tiny bit changes here and ther!
